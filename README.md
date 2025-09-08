@@ -17,5 +17,11 @@ Helps to track my habits. My first project on Python.
 
 4. User can mark the habit as done. They should only enter the name of the habit.
 
+5. User can delete habits from the list of tracked habits.
+
+## Tecnical features
+
+I use json file to save data about habits. 
+
 ## Future development
 I think this project will be deployed via Telegram bot to use on your smartphones.

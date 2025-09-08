@@ -1,21 +1,38 @@
 import json
+from datetime import datetime, date
 
-def add_habit(name_of_habit):
+class NameHabitError(Exception):
+    pass
+
+def add_habit(name_of_habit, habit_description):
     '''
-    Get the name of the habit wanted to be tracked
+    Get the name of the habit wanted to be tracked and description of the habit
 
     Args:
-    name_of_habit (str): name of habit
+    name_of_habit (str): name of the habit
+    habit_description (str): description of the habit
 
     Return:
-    ...
+    "Success! Habit has been added to track list." (str): Messege of successful complit
 
     Raise:
-    ...
+    NameHabitError: if habit with this name has already existed.
 
-    to be continued...
+    >>> 
+    
     '''
-    pass
+    with open('data.json', 'r', encoding='utf-8') as file:
+        data = json.load(file)
+
+    if name_of_habit in data:
+        raise NameHabitError('Habit with this particular name exists!')
+    
+    data[name_of_habit] = {'description': habit_description,
+                           'last_done': date.today(),
+                           'streak': 0
+                           }
+    
+    return 'Success! Habit has been added to track list.'
 
 def mark_done(name_of_habit):
     '''
@@ -68,3 +85,19 @@ def get_info(name_of_habit):
     to be continued...
     '''
     pass
+
+def del_habit(name_of_habit):
+    '''
+    Deletes the inputted habit
+
+    Args:
+    name_of_habit (str): name of habit
+
+    Return:
+    ... (mb text with successful process)
+
+    Raise:
+    ...
+
+    to be continued...
+    '''
