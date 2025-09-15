@@ -91,7 +91,7 @@ def notify():
     '''
     pass
 
-def get_info(name_of_habit):
+def get_info_about_habit(name_of_habit):
     '''
     Gives the discription, last date when it was done and streak of \
         the habit tracked
@@ -100,14 +100,21 @@ def get_info(name_of_habit):
     name_of_habit (str): name of habit
 
     Return:
-    ... (mb text with successful process)
+    (str): returns text with info about habit
 
     Raise:
-    ...
+    NameHabitError: if habit with this name does not exist
 
     to be continued...
     '''
-    pass
+
+    with open('data.json', 'r', encoding='utf-8') as file:
+        data = json.load(file)
+
+    if name_of_habit not in data:
+        raise NameHabitError('Habit with this name does not exist!')
+    
+    return f"{name_of_habit} - {data['description']}\nLast done: {data['last_done']}\nYour streak: {data['streak']}"
 
 def del_habit(name_of_habit):
     '''
@@ -117,10 +124,40 @@ def del_habit(name_of_habit):
     name_of_habit (str): name of habit
 
     Return:
-    ... (mb text with successful process)
+    (str): returns text with info about habit
 
     Raise:
-    ...
+    NameHabitError: if habit with this name does not exist
 
     to be continued...
     '''
+
+    with open('data.json', 'r', encoding='utf-8') as file:
+        data = json.load(file)
+
+    if name_of_habit not in data:
+        raise NameHabitError('Habit with this name does not exist!')
+    
+    del data[name_of_habit]
+
+    return f'Habit {name_of_habit} has been deleated from the list of tracked habits!'
+
+def get_all_info():
+    '''
+    Give all info from the json file about habits tracked
+
+    Return:
+    (str): success!
+
+    to be continued...
+    '''
+
+    with open('data.json', 'r', encoding='utf-8') as file:
+        data = json.load(file)
+
+    for key, value in data.items():
+        print(f'{key}:')
+        for k, v in value.items():
+            print(f'\t{k}: {v}')
+    
+    return 'Success! Enjoy your habits!'
